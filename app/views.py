@@ -29,5 +29,5 @@ def map():
 def addpicture():
     query = 'INSERT INTO `pictures` (`position`, `bearing`, `focus`) VALUES (GeometryFromText(%s), %s, %s);'
     vals = ('POINT(' + request.form['lat'] + ' ' + request.form['lng'] + ')', request.form['bearing'], request.form['focus'])
-    connect.execute(query, vals);
+    connect.execute(query, vals)
     return render_template('common/picture_response.html')
