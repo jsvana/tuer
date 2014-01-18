@@ -117,7 +117,7 @@ def execute(sql,values=None, commitStmt=True):
 	close()
 
 def getDB():
-	print 'Openinging database'
+	print 'Opening database'
 	global db
 	global cur
 	db = mysql.connector.connect(
