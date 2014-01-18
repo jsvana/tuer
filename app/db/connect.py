@@ -41,10 +41,8 @@ def getRows(tbl, keys, where):
 def insert(tbl, vals):
 	vList = vals.values()
 
-	sql = 'INSERT INTO ' + tbl + ' (' + ','.join(map(lambda k: '`' + k + '`', vals.keys())) + ')'
-	print len(vList)
-	print vList
-	sql += ' VALUES (' + dupString('%s', len(vList)) + ')'
+	sql = "INSERT INTO " + tbl + " (" + ','.join(map(lambda k: '`' + k + '`', vals.keys())) + ")"
+	sql += " VALUES (" + dupString("%s", len(vList)) + ")"
 
 	execute(sql, vList)
 
@@ -91,7 +89,6 @@ def dupString(s, times, sep=','):
 	return new
 
 def query(sql,values=None):
-	print sql
 	global cur
 	if cur is None:
 		getDB()
@@ -104,7 +101,6 @@ def query(sql,values=None):
 	return rows
 
 def execute(sql,values=None, commitStmt=True):
-	print sql
 	global cur
 	if cur is None:
 		getDB()
@@ -117,7 +113,6 @@ def execute(sql,values=None, commitStmt=True):
 	close()
 
 def getDB():
-	print 'Opening database'
 	global db
 	global cur
 	db = mysql.connector.connect(
