@@ -1,0 +1,6 @@
+*.pyc
+flask
+
+app/db/config.json
+
+.DS_Store

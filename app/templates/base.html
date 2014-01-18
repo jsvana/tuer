@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %}{% endblock %}</title>
+	<link rel="stylesheet" href="vendor/css/bootstrap.min.css">
+	<script src="vendor/js/bootstrap.min.js"></script>
+	{% block javascripts %}{% endblock %}
+</head>
+<body>
+	<div>
+		<ul>
+			{% for link in links %}
+				<li style = "display:inline;">
+					<a href="{{url_for(link.view)}}">{{link.title}}</a>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+
+	{% block content %}{% endblock %}
+</body>
+</html>
