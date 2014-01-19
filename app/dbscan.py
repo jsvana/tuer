@@ -5,13 +5,14 @@ unvisited = None
 epsilon = .75
 
 class Point:
-    def __init__(self, ID, lat, lon, visited, bearing, focus):
+    def __init__(self, ID, lat, lon, visited, bearing, focus, hits=0):
         self.ID = ID
         self.lat = lat
         self.lon = lon
         self.vis = visited
         self.bear = bearing
         self.focus = focus
+        self.hits = hits
 
 # determine gps coords from bearing and capture gps
 def getObjPoint(point):
@@ -81,17 +82,6 @@ def batchCluster():
         cluster(p)
         mark(p)
     
-def mset(m, d, p):
-    m[d]=p
-
-def getTopN(P, epsilon, n):
-    landmarks = regionQuery(P, epsilon)
-    m = {}
-    [mset(m,  fDist(P, d), d) for d in landmarks]
-    sorted(m)
-    return m.values()[0:n]
-    
-
 def regionQuery(P, epsilon):
     xmin = P.lat - epsilon
     xmax = P.lat + epsilon
@@ -105,9 +95,9 @@ def regionQuery(P, epsilon):
             xmin, ymin]
     area ="GeomFromText('Polygon((%s %s, %s %s, %s %s, %s %s, %s %s))')" 
     where = 'MBRContains(' + area + ', position)'
-    sql = "SELECT id, X(position), Y(Position) FROM landmarks WHERE "
+    sql = "SELECT id, X(position), Y(Position), centCnt, FROM landmarks WHERE "
     for row in connect.query(sql + where, poly):
-        p = Point(row[0],row[1], row[2], True, 0, 0)
+        p = Point(row[0],row[1], row[2], True, 0, 0, row[3])
         points.append(p)
     print str(len(points)) + " in region"
     return points
