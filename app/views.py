@@ -2,27 +2,20 @@ from flask import render_template, flash, redirect, request
 from app import app
 from db import connect
 import copy
+import utils
 
 links = [
     {'title': 'Home', 'view': 'index'},
-    {'title': 'Map', 'view': 'map'},
 ]
 
 @app.route('/')
 @app.route('/index')
 def index():
-    user = {'nickname': 'Miguel'}
+    #top = utils.getTopNHits({'lat': 42, 'lon': -80}, 15, 10)
+    #print top
     return render_template('index.html',
             title = 'Home',
-            links = links,
-            user = user
-    )
-
-@app.route('/maps')
-def map():
-    return render_template('maps/index.html',
-        title = 'Map',
-        links = links,
+            links = links
     )
 
 @app.route('/pictures/new', methods=['POST'])

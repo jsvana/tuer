@@ -81,19 +81,19 @@ def batchCluster():
     for p in queryUnv():
         cluster(p)
         mark(p)
-    
+
 def regionQuery(P, epsilon):
-    xmin = P.lat - epsilon
-    xmax = P.lat + epsilon
-    ymin = P.lon - epsilon
-    ymax = P.lon + epsilon
+    xmin = P['lat'] - epsilon
+    xmax = P['lat'] + epsilon
+    ymin = P['lon'] - epsilon
+    ymax = P['lon'] + epsilon
     points = list()
     poly = [xmin, ymin,
             xmin, ymax,
             xmax, ymax,
             xmax, ymin,
             xmin, ymin]
-    area ="GeomFromText('Polygon((%s %s, %s %s, %s %s, %s %s, %s %s))')" 
+    area ="GeomFromText('Polygon((%s %s, %s %s, %s %s, %s %s, %s %s))')"
     where = 'MBRContains(' + area + ', position)'
     sql = "SELECT id, X(position), Y(Position), centCnt FROM landmarks WHERE "
     for row in connect.query(sql + where, poly):

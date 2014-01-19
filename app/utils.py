@@ -20,14 +20,13 @@ def getTopNWeighted(point, radius, n, hitsWeight):
     vals = m.values()
     return vals[len(vals) - n:]
 
-    
 def getTopNProx(point, radius, n):
     landmarks = dbscan.regionQuery(point, radius)
     m = {}
     [mset(m, dbscan.fDist(point, p), p) for p in landmarks]
     sorted(m)
     return m.values()[0:n]
-    
+
 def getTopNHits(point, radius, n):
     landmarks = dbscan.regionQuery(point, radius)
     m = {}
