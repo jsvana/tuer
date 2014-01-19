@@ -10,7 +10,7 @@ def showTables(cur):
 	# Use all the SQL you like
 	execute('SHOW TABLES')
 	# print all the first cell of all the rows
-	for row in cur.fetchall() :
+	for row in cur.fetchall():
 		print row[0]
 
 def getColNames(tbName):
@@ -89,16 +89,17 @@ def dupString(s, times, sep=','):
 	return new
 
 def query(sql,values=None):
-	global cur
-	if cur is None:
-		getDB()
-	if values:
-		cur.execute(sql, values)
-	else:
-		cur.execute(sql)
-	rows=cur.fetchall()
-	close()
-	return rows
+    global cur
+    print sql
+    if cur is None:
+        getDB()
+    if values:
+        cur.execute(sql, values)
+    else:
+        cur.execute(sql)
+    rows=cur.fetchall()
+    close()
+    return rows
 
 def execute(sql,values=None, commitStmt=True):
 	global cur

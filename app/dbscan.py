@@ -95,7 +95,7 @@ def regionQuery(P, epsilon):
             xmin, ymin]
     area ="GeomFromText('Polygon((%s %s, %s %s, %s %s, %s %s, %s %s))')" 
     where = 'MBRContains(' + area + ', position)'
-    sql = "SELECT id, X(position), Y(Position), centCnt, FROM landmarks WHERE "
+    sql = "SELECT id, X(position), Y(Position), centCnt FROM landmarks WHERE "
     for row in connect.query(sql + where, poly):
         p = Point(row[0],row[1], row[2], True, 0, 0, row[3])
         points.append(p)
